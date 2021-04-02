@@ -1,25 +1,37 @@
 ##############
 # myenv mult
 USERDIR="/mounts/work/philipp"
-WORKDIR="${USERDIR}/staticlama"
-fasttextpath="/mounts/Users/cisintern/philipp/Dokumente/fastText-0.9.1/fasttext"
+WORKDIR="${USERDIR}/staticlama-debug"
+mkdir -p ${WORKDIR}
 
+fasttextpath="/mounts/Users/cisintern/philipp/Dokumente/fastText-0.9.1/fasttext"
 langs="en th ja de es fi tr ar ko he"
 
 
 ##############
+# download mlama data
+mkdir -p ${WORKDIR}/data/
+wget http://cistern.cis.lmu.de/mlama/mlama1.1-all.zip -P ${WORKDIR}/data/
+unzip ${WORKDIR}/data/mlama1.1-all.zip -d ${WORKDIR}/data/
+mlamadata="${WORKDIR}/data/mlama1.1-all"
+
+
+##############
 # download wikipedias:
-wikidir='${USERDIR}/data/wiki'
+wikidir="${WORKDIR}/data/wiki"
+cwd=$(pwd)
 for lang in ${langs}
 do
 	# use https://github.com/attardi/wikiextractor
-	mkdir ${wikidir}/wiki_${lang}
+	mkdir -p ${wikidir}/wiki_${lang}
 	cd ${wikidir}/wiki_${lang}
 	wget http://download.wikimedia.org/${lang}wiki/latest/${lang}wiki-latest-pages-articles.xml.bz2
 	/mounts/Users/cisintern/philipp/Dokumente/wikiextractor/WikiExtractor.py -cb 250K -o extracted ${lang}wiki-latest-pages-articles.xml.bz2
 	find extracted -name '*bz2' -exec bunzip2 -c {} \; > wiki${lang}.xml
 	rm -rf extracted
 done
+cd ${cwd}
+
 
 ##############
 # preprocess wikipedias
@@ -39,7 +51,6 @@ do
 	mkdir -p ${WORKDIR}/vocab/${lang}
 
 	# create vocabulary
-	#for vocabsize in 120000 250000 1000000
 	for vocabsize in 30000 120000 250000 500000 1000000
 	do
 		mkdir -p ${WORKDIR}/vocab/${lang}/wiki${lang}-text-${vocabsize} &&
@@ -116,11 +127,9 @@ done
 ##############
 # run staticlama
 exid="debug"
-langs="en de es fi tr ar ko he th ja"
 # get the dataset e.g., from http://cistern.cis.lmu.de/mlama/
-mlamadata="${USERDIR}/lama/mlama1.1-all"
-idfilter="configs/UHN_uuids.json"
-#idfilter="all"
+#idfilter="configs/UHN_uuids.json"
+idfilter="all"
 topn=5
 for lang in ${langs} 
 do

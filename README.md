@@ -3,12 +3,18 @@
 This repository contains code for the NAACL 2021 paper ["Static Embeddings as Efficient Knowledge Bases?"]().
 We investigate how static word embeddings can be used on a modified LAMA probe.
 
+This code contains functionality to answer knowledge intensive questions using basic similarity search with static embeddings
+or using typed querying in pretrained language models. 
+
+With some modifications it can also be used for the standard LAMA probe. 
+
+
 ## Embeddings
 
-The pretrained static embeddings are available [here](). The pretrained contextualized embeddings can be downloaded using
+The pretrained static embeddings will be published [here](http://cistern.cis.lmu.de/). The pretrained contextualized embeddings can be downloaded using
 [huggingface](https://huggingface.co/).
 
-## Reproduction
+## Running the code
 
 To reproduce our results:
 
@@ -20,27 +26,24 @@ conda create -n staticlama -y python=3.7 && conda activate staticlama
 pip install -r requirements.txt
 ```
 
-add project to path:
+### 2. Setup dependencies
 
-export PYTHONPATH=${PYTHONPATH}:/path-to-project
+In order to run the experiments end to end, two external tools are required: 
+1) [Wikiextractor](https://github.com/attardi/wikiextractor)
+2) [fastText](https://github.com/facebookresearch/fastText)
 
-### 2. Download the data
+Please install them and modify the paths to the binaries in `staticlama.sh`
 
-
-```bash
-wget http://cistern.cis.lmu.de/mlama/mlama.zip
-unzip mlama.zip
-rm data.zip
-```
 
 ### 3. Run the experiments
 
 ```bash
-python scripts/run_experiments_mBERT_ranked.py --lang "fr"
-python scripts/eval.py
+bash staticlama.sh
 ```
 
-## Reference:
+If you encounter any issue or want to improve the code, please reach out to us.
+
+## References
 
 ```bibtex
 @inproceedings{dufter2021static,
@@ -67,14 +70,12 @@ python scripts/eval.py
 }
 ```
 
-## Acknowledgements
-
-tbd
-
 
 ## License
 
-MIT
+Copyright (C) 2020 Philipp Dufter
+
+A full copy of the license can be found in LICENSE.
 
 
 
