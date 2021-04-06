@@ -11,7 +11,7 @@ With some modifications it can also be used for the standard LAMA probe.
 
 ## Embeddings
 
-The pretrained static embeddings will be published [here](http://cistern.cis.lmu.de/). The pretrained contextualized embeddings can be downloaded using
+The pretrained static embeddings are available [here](http://cistern.cis.lmu.de/staticlama). The pretrained contextualized embeddings can be downloaded using
 [huggingface](https://huggingface.co/).
 
 ## Running the code

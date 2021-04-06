@@ -322,6 +322,8 @@ class StaticPredictor(Predictor):
     def typed_prediction(self, triples: List[Dict[Text, Text]], object_set: Set[Text], template: Text = None, n: int = 1, measure: Text = "cosine", normalize: bool = False, add_relation_vector: bool = False, add_template_to_subject: bool = False) -> List[List[Text]]:
         """Do typed prediction, i.e., get the nearest neighbours for each object in the triples.
 
+        For untyped prediction it should work to set object_set to the whole vocabulary of the language model.
+
         Args:
             triples (List[Dict[Text, Text]]): Description
             object_set (Set[Text]): Description
