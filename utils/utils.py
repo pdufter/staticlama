@@ -30,7 +30,7 @@ def get_logger(name, filename=None, level=logging.DEBUG):
 LOG = get_logger(__name__)
 
 
-def load_triples(path: Text, lang: Text, relation: Text, filter_english: bool = True, filter_ids: Set[int] = None) -> List[Dict]:
+def e(path: Text, lang: Text, relation: Text, filter_english: bool = True, filter_ids: Set[int] = None) -> List[Dict]:
     """
     Args:
         path (Text): path to dataset.
@@ -52,7 +52,7 @@ def load_triples(path: Text, lang: Text, relation: Text, filter_english: bool = 
             for i, line in enumerate(fp):
                 if line.strip():
                     triple = json.loads(line.strip())
-                    if (not filter_english or not triple["from_english"]) and (not filter_ids or i in filter_ids):
+                    if (not filter_english or not triple["from_english"]) and (not filter_ids or triple["lineid"] in filter_ids):
                         triples.append(triple)
     return triples
 
