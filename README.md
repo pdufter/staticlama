@@ -1,6 +1,6 @@
 # StaticLAMA: Static Embeddings as Efficient Knowledge Bases?
 
-This repository contains code for the NAACL 2021 paper ["Static Embeddings as Efficient Knowledge Bases?"]().
+This repository contains code for the NAACL 2021 paper ["Static Embeddings as Efficient Knowledge Bases?"](https://arxiv.org/pdf/2104.07094.pdf).
 We investigate how static word embeddings can be used on a modified LAMA probe.
 
 This code contains functionality to answer knowledge intensive questions using basic similarity search with static embeddings
